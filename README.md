@@ -4,7 +4,7 @@ Table of Contents:
 
 # Running Postgres and PgAdmin through Docker
 
-0. Environment Dependencies
+### 0. Environment Dependencies
 python = 3.9.16
 Packages:
 - pgcli
@@ -13,7 +13,7 @@ Packages:
 
 ** installed postgresql through `brew install postgresql`
 
-1. Postgres Docker
+### 1. Postgres Docker
 
 Download docker image using `docker pull postgres:13`
 Run postgres through docker using following command
@@ -30,7 +30,7 @@ docker run -it \
 - open a new terminal and connect to postgres using pgcli
 `pgcli -h localhost -p 5432 -u root -d ny_taxi`
 
-2. PgAdmin Docker 
+### 2. PgAdmin Docker 
 
 Download docker image using `docker pull dpage/pgadmin4`
 
@@ -45,7 +45,7 @@ docker run -it \
 Can't connect to postgres since pgadmin and postgres are in different containers
 Connect two containers using network
 
-3. Postgres and PgAdmin together
+### 3. Postgres and PgAdmin together
 
 Create network using `docker network create pg-network`
 
@@ -75,3 +75,16 @@ docker run -it \
 - create a server with database name `pg-database` to connect to postgres DB.
 
 # Ingesting Data
+
+```bash
+URL="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-01.parquet"
+
+python ingest_data.py \
+  --user=root \
+  --password=root \
+  --host=localhost \
+  --port=5432 \
+  --db=ny_taxi \
+  --tb=yellow_taxi_data \
+  --url=${URL}
+```
